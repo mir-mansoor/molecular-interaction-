@@ -1,5 +1,25 @@
-# SOAP-Based 3D Molecular Representation Module for SRR-DDI
-**Author:** *Mir Mansoor Ahmad*
+This repository contains two related files focusing on **SOAP (Smooth Overlap of Atomic Positions)**–based molecular representations for **Drug–Drug Interaction (DDI)** prediction:  
+
+1. **SOAP-Based DDI Prediction (Standalone Project)** – uses only 3D SOAP descriptors and simulated annealing optimization.  
+2. **Combined SOAP + SRR-DDI Representation (Integrated Project)** – integrates SOAP-based 3D molecular embeddings with SRR-DDI’s 2D graph-based model for enhanced prediction accuracy. 
+
+## 🧱 Part 1 — SOAP‑Based DDI Prediction (Standalone Project)
+
+This section covers the **SOAP‑only** implementation that performs DDI prediction using molecular 3D atomic environments computed via the SOAP descriptor and optimized using **Simulated Annealing (SA)**.  
+It operates independently and does not require SRR‑DDI.
+
+### 📁 Files
+| File | Description |
+|------|--------------|
+| **`get_soap.py`** | Generates 3D SOAP descriptors for each molecule using RDKit and DScribe. Converts SMILES into 3D atomic environments and computes SOAP vectors. |
+| **`original_single_run_improved.py`** | Implements the SOAP-only DDI prediction workflow. Includes Simulated Annealing for optimizing SOAP parameters (`l_max`, `n_max`, `r_cut`, `sigma`) to maximize model accuracy. |
+
+
+
+
+## 🧩 Part 2 — Combined 3D SOAP + SRR‑DDI Representation (Integrated Project)
+
+This part integrates the **3D SOAP‑based features** into the existing **SRR‑DDI** framework, combining geometric atomic information with graph‑based molecular topology for improved representation learning.
 
 This repository contains the **SOAP (Smooth Overlap of Atomic Positions)**–based modules developed to extend the **SRR-DDI** framework with **three-dimensional (3D)** atomic environment features.  
 Only the original SOAP-related components are included here — the rest of the SRR-DDI source code is not redistributed.
