@@ -3,7 +3,7 @@ This repository contains two related files focusing on **SOAP (Smooth Overlap of
 1. **SOAP-Based DDI Prediction (Standalone Project)** – uses only 3D SOAP descriptors and simulated annealing optimization.  
 2. **Combined SOAP + SRR-DDI Representation (Integrated Project)** – integrates SOAP-based 3D molecular embeddings with SRR-DDI’s 2D graph-based model for enhanced prediction accuracy. 
 
-## 🧱 Part 1 — SOAP‑Based DDI Prediction (Standalone Project)
+##  Part 1 — SOAP‑Based DDI Prediction (Standalone Project)
 
 This section covers the **SOAP‑only** implementation that performs DDI prediction using molecular 3D atomic environments computed via the SOAP descriptor and optimized using **Simulated Annealing (SA)**.  
 It operates independently and does not require SRR‑DDI.
@@ -17,7 +17,7 @@ It operates independently and does not require SRR‑DDI.
 
 
 
-## 🧩 Part 2 — Combined 3D SOAP + SRR‑DDI Representation (Integrated Project)
+##  Part 2 — Combined 3D SOAP + SRR‑DDI Representation (Integrated Project)
 
 This part integrates the **3D SOAP‑based features** into the existing **SRR‑DDI** framework, combining geometric atomic information with graph‑based molecular topology for improved representation learning.
 
@@ -26,7 +26,7 @@ Only the original SOAP-related components are included here — the rest of the 
 
 ---
 
-## 🧩 Purpose
+##  Purpose
 While SRR-DDI encodes molecules using **2D graph neural networks (GNNs)**, this module adds a **3D structural representation** by computing SOAP descriptors that describe each atom’s local spatial environment.  
 These SOAP embeddings are later **combined (concatenated)** with SRR-DDI’s graph-based features to create a unified molecular representation for **drug–drug interaction (DDI) prediction**.
 
