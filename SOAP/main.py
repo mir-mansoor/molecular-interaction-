@@ -69,82 +69,7 @@ def collate_fn(batch):
     mask2 = (tokens2.abs().sum(dim=-1) != 0)
     return tokens1.to(device), tokens2.to(device), labels.to(device), mask1.to(device), mask2.to(device)
 
-# -------------------- Model Definitions --------------------
-class TokenMLP(nn.Module):
-    def __init__(self, in_dim, token_out_dim):
-        super(TokenMLP, self).__init__()
-        self.fc1 = nn.Linear(in_dim, 512)
-        self.relu1 = nn.ReLU()
-        self.dropout1 = nn.Dropout(0.15)
-        self.fc2 = nn.Linear(512, 256)
-        self.relu2 = nn.ReLU()
-        self.dropout2 = nn.Dropout(0.15)
-        self.fc3 = nn.Linear(256, 128)
 
-    def forward(self, x, mask):
-        b, n, d = x.shape
-        x = x.view(b * n, d)
-        out = self.fc1(x)
-        out = self.relu1(out)
-        #out = self.dropout1(out)
-        out = self.fc2(out)
-        out = self.relu2(out)
-        #out = self.dropout2(out)
-        out = self.fc3(out)
-        out = out.view(b, n, -1)
-        mask = mask.unsqueeze(-1).float()
-        out = out * mask #note that i use mask at the end (not at each layer) because each token is
-        # seperate and padded tokens are also seperate, hence they will not impact each other
-        return out  # (B, num_tokens, token_out_dim//4)
-
-
-
-
-
-
-
-
-class DDI_Predictor(nn.Module):
-    def __init__(self, token_in_dim, token_out_dim, num_tokens, fc_hidden_dim, coattn_k=8):
-        super(DDI_Predictor, self).__init__()
-        self.token_mlp = TokenMLP(token_in_dim, token_out_dim)
-        self.num_tokens = num_tokens
-        #d = token_out_dim // 4  # Output per token from TokenMLP
-        flattened_dim = num_tokens * 128 #d instead of 64
-        flattened_dim=flattened_dim * 2
-
-        # self.fc1 = nn.Linear(flattened_dim, flattened_dim // 4)
-        # self.bn1 = nn.BatchNorm1d(flattened_dim // 4)
-        # self.relu = nn.ReLU()
-        # self.fc2 = nn.Linear(flattened_dim // 4, flattened_dim // 8)
-        # self.relu2 = nn.ReLU()
-        # self.fc3 = nn.Linear(flattened_dim // 8, 1)
-
-        self.fc1 = nn.Linear(flattened_dim, 512)
-        self.bn1 = nn.BatchNorm1d(512)
-        self.relu = nn.ReLU()
-        self.dropout = nn.Dropout(0.7)
-        self.fc2 = nn.Linear(512, 128)
-        self.relu2 = nn.ReLU()
-        self.dropout2 = nn.Dropout(0.4)
-        self.fc3 = nn.Linear(128, 1)
-
-    def forward(self, drug1, drug2, mask1, mask2):
-        emb1 = self.token_mlp(drug1, mask1)
-        emb2 = self.token_mlp(drug2, mask2)
-        flat_v = emb1.view(emb1.size(0), -1)
-        flat_q = emb2.view(emb2.size(0), -1)
-        #combined = flat_v + flat_q
-        combined = torch.cat([flat_v, flat_q], dim=1)
-        x = self.fc1(combined)
-        x = self.bn1(x)
-        x = self.relu(x)
-        x = self.dropout(x)
-        x = self.fc2(x)
-        x = self.relu2(x)
-        x = self.dropout2(x)
-        x = self.fc3(x)
-        return x.squeeze()
 
 # -------------------- Training and Evaluation Functions --------------------
 def init_weights(m):
@@ -522,3 +447,4 @@ def sa_optimization():
 if __name__ == "__main__":
     print("model_1_priority_reset_SA---Before close _FINAL")
     sa_optimization()
+
