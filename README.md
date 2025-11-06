@@ -12,7 +12,7 @@ It operates independently and does not require SRR‑DDI.
 | File | Description |
 |------|--------------|
 | **`get_soap.py`** | Generates 3D SOAP descriptors for each molecule using RDKit and DScribe. Converts SMILES into 3D atomic environments and computes SOAP vectors. |
-| **`original_single_run_improved.py`** | Implements the SOAP-only DDI prediction workflow. Includes Simulated Annealing for optimizing SOAP parameters (`l_max`, `n_max`, `r_cut`, `sigma`) to maximize model accuracy. |
+| **`main.py`** | Implements the SOAP-only DDI prediction workflow. It Includes Simulated Annealing optimized SOAP parameters (`l_max`, `n_max`, `r_cut`, `sigma`) to maximize model accuracy. |
 
 
 
